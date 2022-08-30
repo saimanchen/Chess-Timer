@@ -9,10 +9,8 @@ class ViewController: UIViewController {
     
     var countWhite: Double = 300.0
     var countBlack: Double = 300.0
-    
     var isWhite: Bool? = false
     var isBlack: Bool? = true
-    
     var formatter = DateComponentsFormatter()
     var timer: Timer? = Timer()
     
@@ -23,11 +21,15 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onPressPlay(_ sender: Any) {
+        
+        if(btnPlay.titleLabel?.text == "Play again") {
+            resetLabels()
+        }
+        
         timer?.invalidate()
         btnPlay.setTitle("Switch", for: .normal)
         
         // toggles whose turn it is
-        
         if(isWhite ?? false) {
             isWhite = false
             isBlack = true
@@ -46,8 +48,6 @@ class ViewController: UIViewController {
     @IBAction func onPressReset(_ sender: Any) {
         timer?.invalidate()
         btnPlay.setTitle("Play", for: .normal)
-        countWhite = 300.0
-        countBlack = 300.0
         resetLabels()
     }
     
@@ -64,6 +64,9 @@ class ViewController: UIViewController {
             labelBlack.text = formatter.string(from: countBlack)
         }
         
+        if(countWhite == 0 || countBlack == 0) {
+            endGame()
+        }
     }
     
     func timeFormatter(count: Double) -> String {
@@ -73,8 +76,18 @@ class ViewController: UIViewController {
     }
     
     func resetLabels() {
+        isWhite = false
+        isBlack = true
+        countWhite = 300.0
+        countBlack = 300.0
+        formatter.allowedUnits = [.minute, .second]
         labelWhite.text = timeFormatter(count: countWhite)
         labelBlack.text = timeFormatter(count: countBlack)
+    }
+    
+    func endGame() {
+        timer?.invalidate()
+        btnPlay.setTitle("Play again", for: .normal)
     }
 }
 

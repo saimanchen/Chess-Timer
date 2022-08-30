@@ -1,19 +1,80 @@
-//
-//  ViewController.swift
-//  ChessTimer
-//
-//  Created by Saiman Chen on 2022-08-30.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var labelWhite: UILabel!
+    @IBOutlet weak var labelBlack: UILabel!
+    @IBOutlet weak var btnPlay: UIButton!
+    @IBOutlet weak var btnReset: UIButton!
+    
+    var countWhite: Double = 300.0
+    var countBlack: Double = 300.0
+    
+    var isWhite: Bool? = false
+    var isBlack: Bool? = true
+    
+    var formatter = DateComponentsFormatter()
+    var timer: Timer? = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        resetLabels()
     }
 
-
+    @IBAction func onPressPlay(_ sender: Any) {
+        timer?.invalidate()
+        btnPlay.setTitle("Switch", for: .normal)
+        
+        // toggles whose turn it is
+        
+        if(isWhite ?? false) {
+            isWhite = false
+            isBlack = true
+        } else {
+            isWhite = true
+            isBlack = false
+        }
+        
+        if(isWhite ?? false) {
+            startTimer(count: countWhite)
+        } else {
+            startTimer(count: countBlack)
+        }
+    }
+    
+    @IBAction func onPressReset(_ sender: Any) {
+        timer?.invalidate()
+        btnPlay.setTitle("Play", for: .normal)
+        countWhite = 300.0
+        countBlack = 300.0
+        resetLabels()
+    }
+    
+    func startTimer(count: Double?) {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: countDown(timer:))
+    }
+    
+    func countDown(timer: Timer?) {
+        if(isWhite ?? false) {
+            countWhite -= 1
+            labelWhite.text = formatter.string(from: countWhite)
+        } else {
+            countBlack -= 1
+            labelBlack.text = formatter.string(from: countBlack)
+        }
+        
+    }
+    
+    func timeFormatter(count: Double) -> String {
+        guard let timeLeft = formatter.string(from: TimeInterval(count)) else { return "" }
+        
+        return timeLeft
+    }
+    
+    func resetLabels() {
+        labelWhite.text = timeFormatter(count: countWhite)
+        labelBlack.text = timeFormatter(count: countBlack)
+    }
 }
 

@@ -16,6 +16,7 @@
 		3303DC4C28BE0BF100D7F848 /* ChessTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303DC4B28BE0BF100D7F848 /* ChessTimerTests.swift */; };
 		3303DC5628BE0BF100D7F848 /* ChessTimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303DC5528BE0BF100D7F848 /* ChessTimerUITests.swift */; };
 		3303DC5828BE0BF100D7F848 /* ChessTimerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303DC5728BE0BF100D7F848 /* ChessTimerUITestsLaunchTests.swift */; };
+		33FD485828C1E65F00707F51 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FD485728C1E65F00707F51 /* TimerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		3303DC5128BE0BF100D7F848 /* ChessTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3303DC5528BE0BF100D7F848 /* ChessTimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessTimerUITests.swift; sourceTree = "<group>"; };
 		3303DC5728BE0BF100D7F848 /* ChessTimerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessTimerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		33FD485728C1E65F00707F51 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				3303DC3628BE0BF000D7F848 /* SceneDelegate.swift */,
 				3303DC3828BE0BF000D7F848 /* ViewController.swift */,
 				3303DC3A28BE0BF000D7F848 /* Main.storyboard */,
+				33FD485728C1E65F00707F51 /* TimerViewController.swift */,
 				3303DC3D28BE0BF100D7F848 /* Assets.xcassets */,
 				3303DC3F28BE0BF100D7F848 /* LaunchScreen.storyboard */,
 				3303DC4228BE0BF100D7F848 /* Info.plist */,
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33FD485828C1E65F00707F51 /* TimerViewController.swift in Sources */,
 				3303DC3928BE0BF000D7F848 /* ViewController.swift in Sources */,
 				3303DC3528BE0BF000D7F848 /* AppDelegate.swift in Sources */,
 				3303DC3728BE0BF000D7F848 /* SceneDelegate.swift in Sources */,

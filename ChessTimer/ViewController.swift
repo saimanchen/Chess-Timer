@@ -1,127 +1,61 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var labelWhite: UILabel!
-    @IBOutlet weak var labelBlack: UILabel!
-    @IBOutlet weak var labelWhiteTime: UILabel!
-    @IBOutlet weak var labelBlackTime: UILabel!
-    @IBOutlet weak var btnPlay: UIButton!
-    @IBOutlet weak var btnReset: UIButton!
     
+    var oneMinToTimerSegue: String = "1MinToTimerSegue"
+    var threeMinToTimerSegue: String = "3MinToTimerSegue"
+    var fiveMinToTimerSegue: String = "5MinToTimerSegue"
+    var tenMinToTimerSegue: String = "10MinToTimerSegue"
+    var twentyMinToTimerSegue: String = "20MinToTimerSegue"
+    var thirtyMinToTimerSegue: String = "30MinToTimerSegue"
     
-    var countWhite: Double = 300.0
-    var countBlack: Double = 300.0
-    var isWhite: Bool? = false
-    var formatter = DateComponentsFormatter()
-    var timer: Timer? = Timer()
+    var count: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resetLabels()
     }
-
-    @IBAction func onPressPlay(_ sender: Any) {
-        if(btnPlay.titleLabel?.text == "Play again") {
-            resetLabels()
+    @IBAction func onPress1Min(_ sender: Any) {
+        performSegue(withIdentifier: oneMinToTimerSegue, sender: self)
+    }
+    
+    @IBAction func onPress3Min(_ sender: Any) {
+        performSegue(withIdentifier: threeMinToTimerSegue, sender: self)
+    }
+    
+    @IBAction func onPress5Min(_ sender: Any) {
+        performSegue(withIdentifier: fiveMinToTimerSegue, sender: self)
+    }
+    
+    @IBAction func onPress10Min(_ sender: Any) {
+        performSegue(withIdentifier: tenMinToTimerSegue, sender: self)
+    }
+    
+    @IBAction func onPress20Min(_ sender: Any) {
+        performSegue(withIdentifier: twentyMinToTimerSegue, sender: self)
+    }
+    
+    @IBAction func onPress30Min(_ sender: Any) {
+        performSegue(withIdentifier: thirtyMinToTimerSegue, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TimerViewController
+        switch segue.identifier {
+        case oneMinToTimerSegue:
+            destinationVC.receivingCount = 60.0
+        case threeMinToTimerSegue:
+            destinationVC.receivingCount = 180.0
+        case fiveMinToTimerSegue:
+            destinationVC.receivingCount = 300.0
+        case tenMinToTimerSegue:
+            destinationVC.receivingCount = 600.0
+        case twentyMinToTimerSegue:
+            destinationVC.receivingCount = 1200.0
+        case thirtyMinToTimerSegue:
+            destinationVC.receivingCount = 1800.0
+        default: break
         }
-        
-        timer?.invalidate()
-        btnPlay.setTitle("Switch", for: .normal)
-        
-        // toggles whose turn it is
-        if(isWhite ?? false) {
-            isWhite = false
-        } else {
-            isWhite = true
-        }
-        
-        updateColor()
-        
-        if(isWhite ?? false) {
-            startTimer(count: countWhite)
-        } else {
-            startTimer(count: countBlack)
-        }
-    }
-    
-    
-    @IBAction func onPressReset(_ sender: Any) {
-        timer?.invalidate()
-        btnPlay.setTitle("Play", for: .normal)
-        resetLabels()
-    }
-    
-    func startTimer(count: Double?) {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: countDown(timer:))
-    }
-    
-    func countDown(timer: Timer?) {
-        if(isWhite ?? false) {
-            countWhite -= 1
-            labelWhiteTime.text = formatter.string(from: countWhite)
-        } else {
-            countBlack -= 1
-            labelBlackTime.text = formatter.string(from: countBlack)
-        }
-        
-        if(countWhite == 0 || countBlack == 0) {
-            endGame()
-        }
-    }
-    
-    func timeFormatter(count: Double) -> String {
-        guard let timeLeft = formatter.string(from: TimeInterval(count)) else { return "" }
-        
-        return timeLeft
-    }
-    
-    func resetLabels() {
-        whitesTurn()
-        isWhite = false
-        countWhite = 300.0
-        countBlack = 300.0
-        formatter.allowedUnits = [.minute, .second]
-        labelWhiteTime.text = timeFormatter(count: countWhite)
-        labelBlackTime.text = timeFormatter(count: countBlack)
-    }
-    
-    func whitesTurn() {
-        view.backgroundColor = UIColor.white
-        labelWhite.textColor = UIColor.black
-        labelBlack.textColor = UIColor.black
-        labelWhiteTime.textColor = UIColor.black
-        labelBlackTime.textColor = UIColor.black
-        btnPlay.setTitleColor(UIColor.white, for: .normal)
-        btnPlay.backgroundColor = UIColor.black
-        btnReset.setTitleColor(UIColor.white, for: .normal)
-        btnReset.backgroundColor = UIColor.black
-    }
-    
-    func blacksTurn() {
-        view.backgroundColor = UIColor.black
-        labelWhite.textColor = UIColor.white
-        labelBlack.textColor = UIColor.white
-        labelWhiteTime.textColor = UIColor.white
-        labelBlackTime.textColor = UIColor.white
-        btnPlay.setTitleColor(UIColor.black, for: .normal)
-        btnPlay.backgroundColor = UIColor.white
-        btnReset.setTitleColor(UIColor.black, for: .normal)
-        btnReset.backgroundColor = UIColor.white
-    }
-    
-    func updateColor() {
-        if(isWhite ?? false) {
-            whitesTurn()
-        } else {
-            blacksTurn()
-        }
-    }
-    
-    func endGame() {
-        timer?.invalidate()
-        btnPlay.setTitle("Play again", for: .normal)
     }
 }
 
